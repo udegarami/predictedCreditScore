@@ -36,7 +36,7 @@ with open('xgboost_calibrated.csv', newline='') as csv_file:
 @app.get("/")
 async def root():
     #await request()
-    return {"Hello": "Marco"}
+    return {"Hello": "World"}
 
 @app.get("/api/v1/users")
 async def fetch_users():

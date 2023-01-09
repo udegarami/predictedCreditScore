@@ -24,9 +24,10 @@ X    Implement Prediction Algorithm
     Json Output for API jsonify dict
     Organise code in functions
 Make the back end run in the cloud
-    Host on Heroku ou AzureWebApps
-    Implement API (Flask or fastAPI)
-    Readme file, package list
+X    Host on Heroku (works, )
+X    Implement API (Flask or fastAPI)
+X    package list
+    Readme file
 
 Front End
     Draft UI
