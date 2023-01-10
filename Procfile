@@ -1,1 +1,1 @@
-web: uvicorn main:app --host 0.0.0.0 --port 5000 && sh setup.sh && streamlit run /gui/index.py --server.port 8501 --server.baseUrlPath /dashboard/ --server.enableCORS false --server.enableXsrfProtection false --server.headless=true
+web: uvicorn main:app --host 0.0.0.0 --port 5000 && sh setup.sh && streamlit run /gui/index.py --server.port 8501 --server.baseUrlPath /gui/ --server.enableCORS false --server.enableXsrfProtection false --server.headless=true
