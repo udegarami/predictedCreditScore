@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run index.py
+web: uvicorn main:app --host 0.0.0.0 --port $PORT && sh setup.sh && streamlit run gui/index.py
