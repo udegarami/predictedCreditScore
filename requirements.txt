@@ -12,3 +12,4 @@ fastapi
 #Streamlit UI
 streamlit
 protobuf==4.21.12
+requests
