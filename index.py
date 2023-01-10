@@ -1,4 +1,6 @@
 import streamlit as st
+import requests
+import config
 
 header = st.container()
 dataset = st.container()
@@ -19,6 +21,7 @@ with features:
 with modelTraining: 
     st.header('Test')
     st.text('The Hyperparameters are')
-    
-#this is a test 
-#this is a second test
+    apipath=config.server["path"]+"/api/v1/predictions/2"
+    data = requests.get(apipath).json()
+    st.text(data)
+    st.write(data)
