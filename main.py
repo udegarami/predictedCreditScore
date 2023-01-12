@@ -4,7 +4,7 @@ from models import User, Query, Prediction
 import numpy as np
 import pandas as pd
 
-app = FastAPI()
+app = FastAPI(cors=False)
 
 db: List[User] = [
     User(
