@@ -1,6 +1,8 @@
 from typing import List
 from fastapi import FastAPI
 from models import User, Query, Prediction
+import numpy as np
+import pandas as pd
 
 app = FastAPI()
 
@@ -33,7 +35,7 @@ with open('xgboost_calibrated.csv', newline='') as csv_file:
         # Now create the Student instance and append it to the list.
         predictions.append(Prediction(id = id, score = score))
 
-@app.get("/")
+@app.get("/root")
 async def root():
     #await request()
     return {"Hello": "World"}
@@ -43,14 +45,13 @@ async def fetch_users():
     return db
 
 @app.get("/api/v1/predictions")
-async def fetch_predictions(number: int):
+async def fetch_predictions():
     return predictions
 
 @app.get("/api/v1/predictions/{predictionId}")
 async def fetch_prediction(predictionId: int):
     return predictions[predictionId]
 
-@app.post("/api/v1/queryFav")
-async def saveQueryFav(query: Query):
-    query.append(query)
-    return{id: query.id}
+@app.get("/api/v1/df")
+async def df():
+    return predictions
