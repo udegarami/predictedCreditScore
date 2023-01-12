@@ -1,1 +1,1 @@
-web: sh setup.sh && uvicorn main:app --host 0.0.0.0 --port $PORT & streamlit run index.py
+web: docker-compose up
