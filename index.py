@@ -6,7 +6,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-#st.set_option('server.enableXsrfProtection', False)
+st.set_option('server.enableXsrfProtection', False)
 st.set_option('server.enableCORS', True)
 
 #Configuration page header
