@@ -6,9 +6,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.set_option('server.enableXsrfProtection', False)
-st.set_option('server.enableCORS', True)
-
 #Configuration page header
 im = Image.open("favicon.ico")
 st.set_page_config(page_title='Credit Score', page_icon = im, layout = 'wide', initial_sidebar_state = 'auto')
