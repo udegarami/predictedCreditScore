@@ -21,15 +21,12 @@ with header:
 
 with features: 
     st.header('Selection')
-    apipath=config.server["path"]+"/api/v1/predictions/2"
-    id = requests.get(apipath).json()
-    options = st.multiselect(
+    apipath=config.server["path"]+"/api/v1/df"
+    ids = requests.get(apipath).json()
+    options = st.selectbox(
     'Select Customer by ID',
-    #[cs_df["id"]],
-    ['Green', 'Yellow', 'Red', 'Blue', id["id"]],
-    ['Yellow', 'Red'])
-
-    st.write('Selected:', options)
+    ids)
+    st.text(options)
 
     duration = st.slider('Duration', 0, 35, 15)
     st.write("Mortgage duration:", duration, "years (", duration*12,"months)")
