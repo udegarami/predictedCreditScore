@@ -51,3 +51,10 @@ with devInfo:
     st.header('Information for Data Scientists')
     st.text('The Classification Model chosen is:')
     st.text('The Hyperparameters chosen are:')
+    apipath=config.server["path"]+"/api/v1/image/shap_analysis.png"
+
+    response = requests.get(apipath)
+    if response.status_code == 200:
+        with open("shap_analysis.png", "wb") as f:
+            f.write(response.content)
+        st.image("shap_analysis.png", width=600, caption="Shap Analysis")

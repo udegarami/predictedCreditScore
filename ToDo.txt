@@ -27,6 +27,7 @@ Make the back end run in the cloud
 X    Host on Heroku (works, )
 X    Implement API (Flask or fastAPI)
 X    package list
+X    SHAP analysis
     Readme file
 
 Front End
@@ -46,3 +47,5 @@ Note méthodologique
     L’analyse du Data Drift (1 page maximum)
     Un support de présentation pour la soutenance, détaillant le travail réalisé (Powerpoint ou équivalent, 30slides maximum).
     Des copies écran des commits, du dossier Github (+ lien vers ce dossier) et de l’exécution des tests unitaires, qui sont les preuves qu’un pipeline de déploiement continu a permis de déployer l’API, doivent être formalisés dans ce support de présentation.
+
+FBetaScore

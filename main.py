@@ -2,6 +2,10 @@ from typing import List
 from fastapi import FastAPI
 from models import User, Prediction, IdList
 import csv
+from PIL import Image
+from io import BytesIO
+from fastapi.responses import StreamingResponse
+
 
 app = FastAPI(cors=False)
 
@@ -36,30 +40,6 @@ with open('xgboost_calibrated.csv', newline='') as csv_file:
         predictions.append(Prediction(id = id, score = score))
         ids.append(IdList(id = id))
 
-### Shap Analysis
-#import shap
-#import numpy as np
-#import pandas as pd
-#from sklearn.ensemble import RandomForestClassifier
-
-## load your data
-#data = pd.read_csv("application_train.csv")
-#X = data.drop("TARGET", axis=1)
-#y = data["TARGET"]
-
-# train a model
-#model = RandomForestClassifier()
-#model.fit(X, y)
-
-## explain the model's predictions using SHAP values
-#explainer = shap.Explainer(model, X)
-#shap_values = explainer(X)
-
-## plot the feature importances for a single prediction
-#shap.summary_plot(shap_values[0], X)
-
-
-
 
 ### API Endpoints 
 
@@ -83,3 +63,20 @@ async def fetch_prediction(predictionId: int):
 @app.get("/api/v1/df")
 async def df():
     return ids
+
+@app.get("/api/v1/image/{file_name}")
+async def read_image(file_name: str):
+    try:
+        img = Image.open(file_name).convert("RGBA")
+        img_io = BytesIO()
+        img.save(img_io, format='PNG')
+        img_io.seek(0)
+        return StreamingResponse(img_io, media_type='image/png')
+    except:
+        return {"error": "could not open the image"}
+
+# @app.get("/shap")
+# async def read_file():
+#     # Open the image file
+#     image = Image.open('shap_analysis.png')
+#     return image
