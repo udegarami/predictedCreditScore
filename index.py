@@ -26,10 +26,13 @@ with features:
     options = st.selectbox(
     'Select Customer by ID',
     ids)
-    st.text(options)
+    id_value = options['id']
+    apipath=config.server["path"]+"/api/v1/predict/"+id_value
+    score = requests.get(apipath).json()
+    st.text(score)
 
-    duration = st.slider('Duration', 0, 35, 15)
-    st.write("Mortgage duration:", duration, "years (", duration*12,"months)")
+    # duration = st.slider('Duration', 0, 35, 15)
+    # st.write("Mortgage duration:", duration, "years (", duration*12,"months)")
 
 with modelTraining: 
     st.header('Prediction')

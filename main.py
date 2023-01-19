@@ -5,7 +5,9 @@ import csv
 from PIL import Image
 from io import BytesIO
 from fastapi.responses import StreamingResponse
-
+import joblib
+import pandas as pd
+import json
 
 app = FastAPI(cors=False)
 
@@ -27,7 +29,7 @@ predictions: List[Prediction] = [
 ids: List[IdList] = [
 ]
 
-#Import CSV as a DB
+#Import CSV as a DB ######## for some reason xgboost_calibrated ids are out of bounds 
 
 with open('xgboost_calibrated.csv', newline='') as csv_file:
     reader = csv.reader(csv_file)
@@ -43,10 +45,13 @@ with open('xgboost_calibrated.csv', newline='') as csv_file:
 
 ### API Endpoints 
 
-@app.get("/root")
-async def root():
-    #await request()
-    return {"Hello": "World"}
+@app.get("/")
+def read_root():
+    return {"Welcome": "to the Project"}
+
+@app.get("/favicon.ico")
+def read_favicon():
+    return {"Favicon": "OK"}
 
 @app.get("/api/v1/users")
 async def fetch_users():
@@ -75,8 +80,28 @@ async def read_image(file_name: str):
     except:
         return {"error": "could not open the image"}
 
-# @app.get("/shap")
-# async def read_file():
-#     # Open the image file
-#     image = Image.open('shap_analysis.png')
-#     return image
+# @app.get("/api/v1/predict/{predictionId}")
+# async def fetch_prediction(predictionId: int):
+#     calib_fit=joblib.load('calib_pipeline.joblib')
+#     index=predictionId
+#     # Predict default probabilities of the test data
+#     test = pd.read_csv('test_encoded.csv')
+#     test_pred = calib_fit.predict_proba(test.iloc[index].values.reshape(1, -1))
+
+#     #Adding the index back
+#     df_out = pd.DataFrame(columns=['SK_ID_CURR','TARGET'])
+#     df_out = df_out.append({'SK_ID_CURR':index,'TARGET':test_pred[:,1][0]}, ignore_index=True)
+#     return {df_out.at[0,'SK_ID_CURR']:df_out.at[0,'TARGET']}
+
+@app.get("/api/v1/predict/{predictionId}")
+async def fetch_prediction(predictionId: int):
+    calib_fit=joblib.load('calib_pipeline.joblib')
+    index=predictionId
+    # Predict default probabilities of the test data
+    test = pd.read_csv('test_encoded.csv')
+    test_pred = calib_fit.predict_proba(test.iloc[index].values.reshape(1, -1))
+
+    #Adding the index back
+    df_out = pd.DataFrame(columns=['SK_ID_CURR','TARGET'])
+    df_out = df_out.append({'SK_ID_CURR':index,'TARGET':test_pred[:,1][0]}, ignore_index=True)
+    return json.dumps({str(df_out.at[0,'SK_ID_CURR']):df_out.at[0,'TARGET']})
