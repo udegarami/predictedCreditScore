@@ -31,15 +31,23 @@ ids: List[IdList] = [
 
 #Import CSV as a DB ######## for some reason xgboost_calibrated ids are out of bounds 
 
-with open('xgboost_calibrated.csv', newline='') as csv_file:
+# with open('xgboost_calibrated.csv', newline='') as csv_file:
+#     reader = csv.reader(csv_file)
+#     next(reader, None)  # Skip the header.
+#     # Unpack the row directly in the head of the for loop.
+#     for id, score in reader:
+#         # Convert the numbers to floats.
+#         score = float(score)
+#         # Now create the Student instance and append it to the list.
+#         predictions.append(Prediction(id = id, score = score))
+#         ids.append(IdList(id = id))
+
+with open('application_test.csv', newline='') as csv_file:
     reader = csv.reader(csv_file)
-    next(reader, None)  # Skip the header.
-    # Unpack the row directly in the head of the for loop.
-    for id, score in reader:
-        # Convert the numbers to floats.
-        score = float(score)
-        # Now create the Student instance and append it to the list.
-        predictions.append(Prediction(id = id, score = score))
+    headers = next(reader, None)  # Get the headers.
+    id_index = headers.index("SK_ID_CURR")  # Find the index of the "id" column.
+    for row in reader:
+        id = row[id_index]  # Extract the value of the "id" column from the current row.
         ids.append(IdList(id = id))
 
 
@@ -80,28 +88,17 @@ async def read_image(file_name: str):
     except:
         return {"error": "could not open the image"}
 
-# @app.get("/api/v1/predict/{predictionId}")
-# async def fetch_prediction(predictionId: int):
-#     calib_fit=joblib.load('calib_pipeline.joblib')
-#     index=predictionId
-#     # Predict default probabilities of the test data
-#     test = pd.read_csv('test_encoded.csv')
-#     test_pred = calib_fit.predict_proba(test.iloc[index].values.reshape(1, -1))
-
-#     #Adding the index back
-#     df_out = pd.DataFrame(columns=['SK_ID_CURR','TARGET'])
-#     df_out = df_out.append({'SK_ID_CURR':index,'TARGET':test_pred[:,1][0]}, ignore_index=True)
-#     return {df_out.at[0,'SK_ID_CURR']:df_out.at[0,'TARGET']}
-
 @app.get("/api/v1/predict/{predictionId}")
 async def fetch_prediction(predictionId: int):
-    calib_fit=joblib.load('calib_pipeline.joblib')
-    index=predictionId
-    # Predict default probabilities of the test data
+    calib_fit = joblib.load('calib_pipeline.joblib')
+    id = predictionId
     test = pd.read_csv('test_encoded.csv')
-    test_pred = calib_fit.predict_proba(test.iloc[index].values.reshape(1, -1))
-
-    #Adding the index back
+    #Select the row from the test data with the specified id
+    test_row = test[test['SK_ID_CURR'] == id]
+    # Predict default probabilities of the test data
+    test_pred = calib_fit.predict_proba(test_row.values.reshape(1, -1))
+    #Adding the id back
     df_out = pd.DataFrame(columns=['SK_ID_CURR','TARGET'])
-    df_out = df_out.append({'SK_ID_CURR':index,'TARGET':test_pred[:,1][0]}, ignore_index=True)
+    df_out = df_out.append({'SK_ID_CURR':id,'TARGET':test_pred[:,1][0]},ignore_index=True)
+
     return json.dumps({str(df_out.at[0,'SK_ID_CURR']):df_out.at[0,'TARGET']})

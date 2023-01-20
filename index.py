@@ -4,7 +4,8 @@ import config
 from PIL import Image
 import streamlit as st
 import pandas as pd
-import numpy as np
+import numpy as np 
+import json
 
 #Configuration page header
 im = Image.open("favicon.ico")
@@ -20,30 +21,25 @@ with header:
     st.title('Loan Payback Estimator')
 
 with features: 
-    st.header('Selection')
+    st.header('Prediction')
     apipath=config.server["path"]+"/api/v1/df"
-    ids = requests.get(apipath).json()
+    ids = list(json.loads(requests.get(apipath).text))
+    ids = [d['id'] for d in ids]
     options = st.selectbox(
     'Select Customer by ID',
     ids)
-    id_value = options['id']
-    apipath=config.server["path"]+"/api/v1/predict/"+id_value
-    score = requests.get(apipath).json()
-    st.text(score)
-
-    # duration = st.slider('Duration', 0, 35, 15)
-    # st.write("Mortgage duration:", duration, "years (", duration*12,"months)")
+    id_value = options#['id']
+    apipath=config.server["path"]+"/api/v1/predict/"+str(id_value)
+    score = json.loads(requests.get(apipath).text)
+    score = json.loads(score)
+    score = list(score.values())[0]
+    score = score * 100
+    score = round(score, 2)
+    st.text("Payback probability: " + str(score) + " %")
 
 with modelTraining: 
-    st.header('Prediction')
-    st.text('The Hyperparameters are')
-    apipath=config.server["path"]+"/api/v1/predictions/2"
-    prediction = requests.get(apipath).json()
-    #st.bar_chart(data= prediction,x= prediction["id"] , y= prediction["score"])
-    st.text(prediction)
-    st.write(prediction)
-
-
+    st.header('Information about the customer')
+    st.text('She is very smart')
     chart_data = pd.DataFrame(
     np.random.randn(20, 3),
     columns=["a", "b", "c"])
