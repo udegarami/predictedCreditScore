@@ -21,8 +21,9 @@ X    Implement Prediction Algorithm
         X    Github pour stocker et partager sur le cloud le code de l’API, alimenté par un “push” Git et ainsi assurer une intégration continue
             Github Actions pour le déploiement continu et automatisé du code de l’API sur le cloud
             (optionnel)Pytest (ou Unittest) pour concevoir les tests unitaires et les exécuter de manière automatisée lors du build réalisé par GithubActions
-    Json Output for API jsonify dict
-    Organise code in functions
+    X Json Output for API jsonify dict
+    X Organise code in functions
+    KNN
 Make the back end run in the cloud
 X    Host on Heroku (works, )
 X    Implement API (Flask or fastAPI)
@@ -31,9 +32,9 @@ X    SHAP analysis
     Readme file
 
 Front End
-    Draft UI
+X    Draft UI
     Code UI (Streamlit)
-    Host UI
+X    Host UI
     Run All together
     Readme file, package list
 
@@ -48,4 +49,4 @@ Note méthodologique
     Un support de présentation pour la soutenance, détaillant le travail réalisé (Powerpoint ou équivalent, 30slides maximum).
     Des copies écran des commits, du dossier Github (+ lien vers ce dossier) et de l’exécution des tests unitaires, qui sont les preuves qu’un pipeline de déploiement continu a permis de déployer l’API, doivent être formalisés dans ce support de présentation.
 
-FBetaScore
+FBetaScore in scikit learn , put next to auc score 
