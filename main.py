@@ -111,7 +111,7 @@ path = "" # "/dataset/"
 
 X_train = pd.read_csv(path + 'train_encoded.csv')
 X_test = pd.read_csv(path + 'test_encoded.csv')
-train_old = pd.read_csv(path + 'application_train.csv')
+train_old = pd.read_csv(path + 'train_sample.csv')
 X_train = X_train.merge(train_old[['SK_ID_CURR', 'TARGET']], on='SK_ID_CURR', how='left')
 y_train = X_train['TARGET']
 X_train = X_train.dropna(subset=['TARGET'])
