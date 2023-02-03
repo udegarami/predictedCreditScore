@@ -1,3 +1,3 @@
 server = {
-    "path": "https://predictedcreditscore.herokuapp.com:8000",
+    "path": "https://predictedcreditscoreapi.herokuapp.com:8000",
 }

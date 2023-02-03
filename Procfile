@@ -1,1 +1,1 @@
-web: docker-compose up
+web: sh -c "streamlit run index.py"

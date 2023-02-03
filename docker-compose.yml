@@ -1,7 +1,0 @@
-version: '3'
-services:
-  web:
-    build: .
-    command: sh -c "streamlit run index.py"
-    ports:
-      - "8501:8501"

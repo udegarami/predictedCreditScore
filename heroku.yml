@@ -1,6 +1,0 @@
-build:
-  docker:
-    web: Dockerfile
-
-run:
-  web: sh -c "streamlit run index.py"
