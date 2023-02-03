@@ -10,6 +10,10 @@ import plotly.express as px
 import pandas as pd
 import math
 
+import os
+
+port = int(os.environ.get("PORT", 8501))
+
 #Configuration page header
 im = Image.open("favicon.ico")
 st.set_page_config(page_title='Credit Score', page_icon = im, layout = 'wide', initial_sidebar_state = 'auto')

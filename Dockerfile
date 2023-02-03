@@ -18,9 +18,7 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
 # Expose port 8000 for FastAPI and port 8501 for Streamlit
-EXPOSE 8000
 EXPOSE 8501
 
 # Start the FastAPI backend and Streamlit frontend servers
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 CMD ["streamlit", "run", "index.py"]
