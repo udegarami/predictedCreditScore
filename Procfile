@@ -1,1 +1,1 @@
-web: sh -c "streamlit run index.py"
+web: streamlit run your_script.py
