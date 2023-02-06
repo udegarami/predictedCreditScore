@@ -12,7 +12,7 @@ import math
 
 import os
 
-port = int(os.environ.get("PORT", 8501))
+#port = int(os.environ.get("PORT", 8501))
 
 #Configuration page header
 im = Image.open("favicon.ico")
