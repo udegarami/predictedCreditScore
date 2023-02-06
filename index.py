@@ -55,8 +55,8 @@ with customer:
         apipath = config.server["path"]+"/api/v1/characteristics/"+str(customerID)
         characs_text = json.loads(requests.get(apipath).text)
         characs = json.loads(characs_text)
-        income_to_annuity = characs["INCOME_TO_ANNUITY_RATIO"]
-        proportion_life_employed = characs["PROPORTION_LIFE_EMPLOYED"]
+        income_to_annuity = characs['income_to_annuity_ratio']
+        proportion_life_employed = characs['proportion_life_employed']
         data=[options, income_to_annuity, proportion_life_employed]
         data_inv=[0, 0, 0]
         marker = False
@@ -68,7 +68,7 @@ with customer:
         ratio = pd.DataFrame(columns=["ID","Income to Annuity Ratio","Proportion of Life employed"],data=[data,data_inv])
         return df, marker
 
-    df, marker, = customerInfo(options)
+    df, marker = customerInfo(options)
 
     cols = st.columns([1, 1])
   
