@@ -15,7 +15,7 @@ import os
 #port = int(os.environ.get("PORT", 8501))
 
 #Configuration page header
-im = Image.open("favicon.ico")
+#im = Image.open("favicon.ico")
 st.set_page_config(page_title='Credit Score', page_icon = im, layout = 'wide', initial_sidebar_state = 'auto')
 
 header = st.container()
