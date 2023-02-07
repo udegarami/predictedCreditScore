@@ -30,6 +30,8 @@ with header:
 with prediction: 
     st.header('Prediction')
     apipath=config.server["path"]+"/api/v1/df"
+    text = requests.get(apipath).text
+    print(text)
     ids = list(json.loads(requests.get(apipath).text))
     ids = [json.loads(d)['id'] for d in ids] #ids = [d['id'] for d in ids]
     options = st.selectbox(
