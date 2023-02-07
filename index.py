@@ -8,6 +8,8 @@ import json
 import plotly.express as px
 import pandas as pd
 import math
+import asyncio
+import aiohttp
 
 import os
 
@@ -26,25 +28,35 @@ devInfo = st.container()
 with header: 
     st.title('Loan Payback Estimator')
 
-with prediction: 
+with prediction:
     st.header('Prediction')
-    apipath=config.server["path"]+"/api/v1/df"
-    #text = requests.get(apipath).text
-    #print(text)
-    ids = list(json.loads(requests.get(apipath).text))
-    print(ids)
-    ids = [d['id'] for d in ids] #ids = [json.loads(d)['id'] for d in ids]
-    options = st.selectbox(
-    'Select Customer by ID',
-    ids) 
-    id_value = options#['id']
-    apipath=config.server["path"]+"/api/v1/predict/"+str(id_value)
-    score = json.loads(requests.get(apipath).text)
-    score = json.loads(score)
-    score = list(score.values())[0]
-    score = score * 100
-    score = round(score, 2)
-    st.text("Payback probability: " + str(score) + " %")
+
+    async def get_ids(apipath):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(apipath) as response:
+                response_text = await response.text()
+                ids = list(json.loads(response_text))
+        return ids
+
+    async def main():
+        apipath = config.server["path"]+"/api/v1/df"
+        ids = await get_ids(apipath)
+        ids = list(json.loads(requests.get(apipath).text))
+        ids = [d['id'] for d in ids]
+        options = st.selectbox(
+            'Select Customer by ID',
+            ids)
+        id_value = options  # ['id']
+        apipath = config.server["path"]+"/api/v1/predict/"+str(id_value)
+        score = json.loads(requests.get(apipath).text)
+        score = json.loads(score)
+        score = list(score.values())[0]
+        score = score * 100
+        score = round(score, 2)
+        st.text("Payback probability: " + str(score) + " %")
+        return id_value,options
+
+    asyncio.run(main())   
 
 with customer: 
     
