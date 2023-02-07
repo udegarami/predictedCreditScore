@@ -16,3 +16,4 @@ requests
 plotly.express
 asyncio
 aiohttp
+fastapi-cors
