@@ -33,7 +33,7 @@ with prediction:
     #print(text)
     ids = list(json.loads(requests.get(apipath).text))
     print(ids)
-    ids = [int(d['id']) for d in ids] #ids = [json.loads(d)['id'] for d in ids]
+    ids = [d['id'] for d in ids] #ids = [json.loads(d)['id'] for d in ids]
     options = st.selectbox(
     'Select Customer by ID',
     ids) 
