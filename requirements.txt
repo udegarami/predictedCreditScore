@@ -14,3 +14,9 @@ streamlit
 protobuf==3.20.0
 requests
 plotly.express
+json
+PIL 
+pandas
+numpy
+json
+math
