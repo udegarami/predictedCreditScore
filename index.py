@@ -3,7 +3,6 @@ import requests
 import config
 from PIL import Image
 import streamlit as st
-import pandas as pd
 import numpy as np 
 import json
 import plotly.express as px
@@ -33,6 +32,7 @@ with prediction:
     #text = requests.get(apipath).text
     #print(text)
     ids = list(json.loads(requests.get(apipath).text))
+    print(ids)
     ids = [d['id'] for d in ids] #ids = [json.loads(d)['id'] for d in ids]
     options = st.selectbox(
     'Select Customer by ID',
