@@ -32,7 +32,6 @@ with prediction:
     options = st.selectbox(
     'Select Customer by ID',
     ids) 
-    options = '340503'
     id_value = options#['id']
     apipath=config.server["path"]+"/api/v1/predict/"+str(id_value)
     score = json.loads(requests.get(apipath).text)
