@@ -8,12 +8,7 @@ import json
 import plotly.express as px
 import pandas as pd
 import math
-import asyncio
-import aiohttp
-
 import os
-
-#port = int(os.environ.get("PORT", 8501))
 
 #Configuration page header
 im = Image.open("favicon.ico")
@@ -31,11 +26,13 @@ with header:
 with prediction: 
     st.header('Prediction')
     apipath=config.server["path"]+"/api/v1/df"
-    ids = list(json.loads(requests.get(apipath).text))
+    ids = json.loads(requests.get(apipath).text)#list()
+    print(ids)
     ids = [d['id'] for d in ids]
     options = st.selectbox(
     'Select Customer by ID',
     ids) 
+    options = '340503'
     id_value = options#['id']
     apipath=config.server["path"]+"/api/v1/predict/"+str(id_value)
     score = json.loads(requests.get(apipath).text)
