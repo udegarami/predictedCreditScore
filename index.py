@@ -8,7 +8,6 @@ import json
 import plotly.express as px
 import pandas as pd
 import math
-import os
 
 #Configuration page header
 im = Image.open("favicon.ico")
@@ -26,8 +25,7 @@ with header:
 with prediction: 
     st.header('Prediction')
     apipath=config.server["path"]+"/api/v1/df"
-    ids = json.loads(requests.get(apipath).text)#list()
-    print(ids)
+    ids = list(json.loads(requests.get(apipath).text))
     ids = [d['id'] for d in ids]
     options = st.selectbox(
     'Select Customer by ID',
@@ -111,8 +109,8 @@ with knn:
 
 with devInfo:
     st.header('Information for Data Scientists')
-    st.text('The Classification Model chosen is:')
-    st.text('The Hyperparameters chosen are:')
+    st.text('The Classification Model chosen is: XGBClassifier()')
+    st.text('The Hyperparameters chosen are: /n learning_rate = 0.485/n max_depth = 0.485 /n n_estimators = 0.485')
     apipath=config.server["path"]+"/api/v1/image/shap_analysis.png"
 
     response = requests.get(apipath)
