@@ -110,7 +110,7 @@ with knn:
 with devInfo:
     st.header('Information for Data Scientists')
     st.text('The Classification Model chosen is: XGBClassifier()')
-    st.text('The Hyperparameters chosen are: /n learning_rate = 0.485/n max_depth = 0.485 /n n_estimators = 0.485')
+    st.text('The Hyperparameters chosen are: \nlearning_rate = 0.485 \nmax_depth = 3 \nn_estimators = 100')
     apipath=config.server["path"]+"/api/v1/image/shap_analysis.png"
 
     response = requests.get(apipath)
