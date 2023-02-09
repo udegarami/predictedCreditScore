@@ -105,7 +105,6 @@ with knn:
                 """
     st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
     st.table(neighbors[['SK_ID_CURR','EXT_SOURCE_3','EXT_SOURCE_2','EXT_SOURCE_1','DAYS_EMPLOYED','AMT_INCOME_TOTAL','AMT_CREDIT','AMT_ANNUITY']])
-    #st.text(neighbou)
 
 with devInfo:
     st.header('Information for Data Scientists')
