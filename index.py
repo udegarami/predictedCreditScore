@@ -8,6 +8,7 @@ import json
 import plotly.express as px
 import pandas as pd
 import math
+import streamlit.components.v1 as components
 
 #Configuration page header
 im = Image.open("favicon.ico")
@@ -110,10 +111,15 @@ with devInfo:
     st.header('Information for Data Scientists')
     st.text('The Classification Model chosen is: XGBClassifier()')
     st.text('The Hyperparameters chosen are: \nlearning_rate = 0.485 \nmax_depth = 3 \nn_estimators = 100')
+    st.text('SHAP Analysis´:')
     apipath=config.server["path"]+"/api/v1/image/shap_analysis.png"
-
     response = requests.get(apipath)
     if response.status_code == 200:
         with open("shap_analysis.png", "wb") as f:
             f.write(response.content)
         st.image("shap_analysis.png", width=600, caption="Shap Analysis")
+    st.text('Data Stability with Evidently:')
+    HtmlFile = open("stability.html", 'r', encoding='utf-8')
+    source_code = HtmlFile.read() 
+    print(source_code)
+    components.html(source_code)
