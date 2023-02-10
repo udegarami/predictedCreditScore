@@ -1,0 +1,33 @@
+README for Streamlit UI
+
+Introduction
+
+This is a Streamlit-based front end for the prediction of likelihood of a customer to pay back his loan. The prediction is based on anonymized banking data. The user can select a customer from a listbox, and the application will give the prediction as well as the 10 most similar customers from a training database. The prediction is done using a XGB Classifier and the closest customers are found using KNN.
+
+Features
+
+- Customer selection from a listbox
+- Prediction of likelihood of customer to pay back loan
+- 10 most similar customers from training database
+- Information on the model used, including hyperparameters and evaluation metrics
+- Shap analysis and DataDrift analysis for data scientists
+
+How to Use
+
+    Locally:
+
+To run the application locally, simply run the following command:
+
+"streamlit run index.py"
+
+Note: you must run the backend as well or change the URL to the hosted option in config.py
+
+    Hosted:
+
+Visit https://predictedcreditscore.herokuapp.com 
+
+For supported browsers visit https://docs.streamlit.io/knowledge-base/using-streamlit/supported-browsers
+
+Contact Information
+
+For more information or questions, you can contact the the developer at giangreco.marco@gmx.ch. Contributions are not possible for this project as it is part of a training course.
