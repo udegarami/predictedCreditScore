@@ -111,7 +111,7 @@ with devInfo:
     st.header('Information for Data Scientists')
     st.text('The Classification Model chosen is: XGBClassifier()')
     st.text('The Hyperparameters chosen are: \nlearning_rate = 0.485 \nmax_depth = 3 \nn_estimators = 100')
-    st.text('SHAP Analysis´:')
+    st.text('SHAP Analysis:')
     apipath=config.server["path"]+"/api/v1/image/shap_analysis.png"
     response = requests.get(apipath)
     if response.status_code == 200:
