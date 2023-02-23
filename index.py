@@ -57,7 +57,7 @@ with prediction:
     score = score * 100
     score = round(score, 2)
     
-    if score < 0.1:
+    if score < 9:
         color = 'green'
     else:
         color = 'red'
