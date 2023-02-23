@@ -23,14 +23,32 @@ devInfo = st.container()
 with header: 
     st.title('Loan Payback Estimator')
 
+# with prediction: 
+#     st.header('Prediction')
+#     apipath=config.server["path"]+"/api/v1/df"
+#     ids = list(json.loads(requests.get(apipath).text))
+#     ids = [d['id'] for d in ids]
+#     options = st.selectbox(
+#     'Select Customer by ID',
+#     ids) 
+#     id_value = options#['id']
+#     apipath=config.server["path"]+"/api/v1/predict/"+str(id_value)
+#     score = json.loads(requests.get(apipath).text)
+#     score = json.loads(score)
+#     score = list(score.values())[0]
+#     score = score * 100
+#     score = round(score, 2)
+#     st.text("Default probability: " + str(score) + " %")  
+
 with prediction: 
     st.header('Prediction')
     apipath=config.server["path"]+"/api/v1/df"
     ids = list(json.loads(requests.get(apipath).text))
     ids = [d['id'] for d in ids]
     options = st.selectbox(
-    'Select Customer by ID',
-    ids) 
+        'Select Customer by ID',
+        ids
+    ) 
     id_value = options#['id']
     apipath=config.server["path"]+"/api/v1/predict/"+str(id_value)
     score = json.loads(requests.get(apipath).text)
@@ -38,7 +56,13 @@ with prediction:
     score = list(score.values())[0]
     score = score * 100
     score = round(score, 2)
-    st.text("Payback probability: " + str(score) + " %")  
+    
+    if score < 0.1:
+        color = 'green'
+    else:
+        color = 'red'
+    
+    st.markdown(f"<p style='color:{color}'>Default probability: {score}%</p>", unsafe_allow_html=True)
 
 with customer: 
     
