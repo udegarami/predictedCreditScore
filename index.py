@@ -59,7 +59,7 @@ with prediction:
     
     if score < 5:
         color = 'green'
-    elif score > 5 | score < 10:
+    elif score > 5 and score < 10:
         color = 'orange'
     else:
         color = 'red'
