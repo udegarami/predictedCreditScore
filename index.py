@@ -104,6 +104,8 @@ with customer:
         if marker == True:
             st.text("No information to display for 'Income to Annuity Ratio' ")
         else:
+            df["Income to Annuity Ratio"][1]=1
+            print(df["Income to Annuity Ratio"])
             fig = px.pie(df, values=df["Income to Annuity Ratio"],
                         title="Income to Annuity Ratio", height=300, width=200)
             fig.update_layout(margin=dict(l=20, r=20, t=30, b=0),)
@@ -138,7 +140,7 @@ with knn:
                 </style>
                 """
     st.markdown(hide_dataframe_row_index, unsafe_allow_html=True)
-    st.table(neighbors[['SK_ID_CURR','EXT_SOURCE_3','EXT_SOURCE_2','EXT_SOURCE_1','DAYS_EMPLOYED','AMT_INCOME_TOTAL','AMT_CREDIT','AMT_ANNUITY']])
+    st.table(neighbors[['SK_ID_CURR','EXT_SOURCE_3','EXT_SOURCE_2','DAYS_EMPLOYED','AMT_INCOME_TOTAL','AMT_CREDIT','AMT_ANNUITY']])#,'EXT_SOURCE_1'
 
 with devInfo:
     st.header('Information for Data Scientists')
@@ -154,5 +156,4 @@ with devInfo:
     st.text('Data Stability with Evidently:')
     HtmlFile = open("stability.html", 'r', encoding='utf-8')
     source_code = HtmlFile.read() 
-    print(source_code)
     components.html(source_code)
