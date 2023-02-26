@@ -94,13 +94,20 @@ with customer:
 
     cols = st.columns([1, 1])
   
-    with cols[0]:
+    # with cols[0]:
         
-        fig = px.bar(df, x= "Income to Annuity Ratio", y=1/df["Income to Annuity Ratio"],
-                    title="Income to Annuity Ratio", height=300, width=200)
-        fig.update_layout(margin=dict(l=20, r=20, t=30, b=0),)
-        st.plotly_chart(fig, use_container_width=True)
-    
+    #     fig = px.bar(df, x= "Income to Annuity Ratio", y=1/df["Income to Annuity Ratio"],
+    #                 title="Income to Annuity Ratio", height=300, width=200)
+    #     fig.update_layout(margin=dict(l=20, r=20, t=30, b=0),)
+    #     st.plotly_chart(fig, use_container_width=True)
+    with cols[0]:
+        if marker == True:
+            st.text("No information to display for 'Income to Annuity Ratio' ")
+        else:
+            fig = px.pie(df, values=df["Income to Annuity Ratio"],
+                        title="Income to Annuity Ratio", height=300, width=200)
+            fig.update_layout(margin=dict(l=20, r=20, t=30, b=0),)
+            st.plotly_chart(fig, use_container_width=True)
     with cols[1]:
         if marker == True:
             st.text("No information to display for 'Proportion of Life employed' ")
